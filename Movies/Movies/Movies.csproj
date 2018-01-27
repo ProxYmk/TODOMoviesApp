@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <Folder Include="Views\HelloWorld\" />
-    <Folder Include="Views\New Folder\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Migrations\20180115225550_InitialCreate.Designer.cs" />

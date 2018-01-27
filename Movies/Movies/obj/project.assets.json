@@ -29961,11 +29961,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/makoy/Projects/Movies/Movies/Movies.csproj",
+      "projectUniqueName": "/Users/makoy/Projects/Repo/Movies/Movies/Movies.csproj",
       "projectName": "Movies",
-      "projectPath": "/Users/makoy/Projects/Movies/Movies/Movies.csproj",
+      "projectPath": "/Users/makoy/Projects/Repo/Movies/Movies/Movies.csproj",
       "packagesPath": "/Users/makoy/.nuget/packages/",
-      "outputPath": "/Users/makoy/Projects/Movies/Movies/obj",
+      "outputPath": "/Users/makoy/Projects/Repo/Movies/Movies/obj",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
