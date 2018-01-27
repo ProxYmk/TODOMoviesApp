@@ -9,15 +9,29 @@ namespace Movies.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Genre",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    name = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Genre", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Movie",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Genre = table.Column<string>(type: "TEXT", nullable: true),
+                    Genre = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
                     Price = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Rating = table.Column<string>(type: "TEXT", maxLength: 5, nullable: false),
                     ReleaseDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Title = table.Column<string>(type: "TEXT", nullable: true)
+                    Title = table.Column<string>(type: "TEXT", maxLength: 60, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,6 +41,9 @@ namespace Movies.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Genre");
+
             migrationBuilder.DropTable(
                 name: "Movie");
         }

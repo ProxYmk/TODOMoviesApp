@@ -1,10 +1,11 @@
 ﻿<Properties StartupConfiguration="{9819B899-E937-46BC-A4E9-C860CCA71368}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Movies/Models/SeedData.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Movies/Migrations/MovieContextModelSnapshot.cs">
     <Files>
-      <File FileName="Movies/Controllers/MoviesController.cs" Line="28" Column="58" />
-      <File FileName="Movies/Models/MovieGenreViewModel.cs" Line="9" Column="26" />
-      <File FileName="Movies/Views/Movies/Index.cshtml" Line="3" Column="3" />
-      <File FileName="Movies/Models/SeedData.cs" Line="21" Column="40" />
+      <File FileName="Movies/Models/Movie.cs" Line="2" Column="1" />
+      <File FileName="Movies/Models/MovieContext.cs" Line="15" Column="6" />
+      <File FileName="Movies/Models/Genre.cs" Line="6" Column="23" />
+      <File FileName="Movies/Startup.cs" Line="29" Column="35" />
+      <File FileName="Movies/Migrations/MovieContextModelSnapshot.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

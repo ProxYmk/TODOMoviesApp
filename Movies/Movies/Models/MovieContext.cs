@@ -11,5 +11,6 @@ namespace Movies.Models
         }
 
         public DbSet<Movies.Models.Movie> Movie { get; set; }
+        public DbSet<Movies.Models.Genre> Genre { get; set; }
     }
 }

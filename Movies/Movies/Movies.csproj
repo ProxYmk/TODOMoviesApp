@@ -15,14 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\HelloWorld\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Migrations\20180115225550_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20180115225550_InitialCreate.cs" />
-    <Compile Remove="Migrations\MovieContextModelSnapshot.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Remove="Views\Movies\Create.cshtml" />
     <Content Remove="Views\Movies\Delete.cshtml" />
     <Content Remove="Views\Movies\Details.cshtml" />

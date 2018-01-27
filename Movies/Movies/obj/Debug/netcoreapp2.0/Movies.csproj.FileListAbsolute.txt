@@ -15,3 +15,8 @@
 /Users/makoy/Projects/Repo/Movies/Movies/obj/Debug/netcoreapp2.0/Movies.AssemblyInfo.cs
 /Users/makoy/Projects/Repo/Movies/Movies/obj/Debug/netcoreapp2.0/Movies.dll
 /Users/makoy/Projects/Repo/Movies/Movies/obj/Debug/netcoreapp2.0/Movies.pdb
+/Users/makoy/Projects/Repo/Movies/Movies/bin/Debug/netcoreapp2.0/Movies.deps.json
+/Users/makoy/Projects/Repo/Movies/Movies/bin/Debug/netcoreapp2.0/Movies.runtimeconfig.json
+/Users/makoy/Projects/Repo/Movies/Movies/bin/Debug/netcoreapp2.0/Movies.runtimeconfig.dev.json
+/Users/makoy/Projects/Repo/Movies/Movies/bin/Debug/netcoreapp2.0/Movies.dll
+/Users/makoy/Projects/Repo/Movies/Movies/bin/Debug/netcoreapp2.0/Movies.pdb

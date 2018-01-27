@@ -19,20 +19,38 @@ namespace Movies.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
 
+            modelBuilder.Entity("Movies.Models.Genre", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("name");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Genre");
+                });
+
             modelBuilder.Entity("Movies.Models.Movie", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Genre");
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasMaxLength(30);
 
                     b.Property<decimal>("Price");
 
-                    b.Property<string>("Rating");
+                    b.Property<string>("Rating")
+                        .IsRequired()
+                        .HasMaxLength(5);
 
                     b.Property<DateTime>("ReleaseDate");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(60);
 
                     b.HasKey("ID");
 
