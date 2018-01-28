@@ -25,29 +25,44 @@ namespace Movies.Controllers
         }
 
         // Requires using Microsoft.AspNetCore.Mvc.Rendering;
-        public async Task<IActionResult> Index(string movieGenre, string searchString)
+        public async Task<IActionResult> Index(int movieGenre, string searchString)
         {
-            // Use LINQ to get list of genres.
-            IQueryable<string> genreQuery = from m in _context.Movie
-                                            orderby m.Genre
-                                            select m.Genre;
+            var GenreList = _context.Genre.Select(g => new
+            {
+                GenreID = g.ID,
+                GenreName = g.Name
+            });
 
             var movies = from m in _context.Movie
-                         select m;
+                         join g in _context.Genre on m.GenreID equals g.ID
+                         select new { g, m };
+
+            var result = await movies.ToListAsync();
+
+            List<Movie> movieList = new List<Movie>();
+            foreach (var item in result)
+            {
+                movieList.Add(item.m);
+            }
+
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                movies = movies.Where(s => s.Title.Contains(searchString));
+                movieList = (List<Movie>)movieList
+                    .Where(m => m.Title.ToLower().Contains(searchString.ToLower()))
+                    .ToList();
             }
 
-            if (!String.IsNullOrEmpty(movieGenre))
+            if (movieGenre != 0)
             {
-                movies = movies.Where(x => x.Genre == movieGenre);
+                movieList = (List<Movie>)movieList
+                    .Where(m => m.Genre.ID == movieGenre)
+                    .ToList();
             }
 
-            var movieGenreVM = new MovieGenreViewModel();
-            movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
-            movieGenreVM.movies = await movies.ToListAsync();
+            var movieGenreVM = new MovieIndexViewModel();
+            movieGenreVM.genres = new SelectList(GenreList, "GenreID", "GenreName");
+            movieGenreVM.movies = movieList;
 
             return View(movieGenreVM);
         }
@@ -73,21 +88,44 @@ namespace Movies.Controllers
         // GET: Movies/Create
         public IActionResult Create()
         {
-            return View();
+            var actorsList = _context.Actor.Select(a => new
+            {
+                ActorID = a.ID,
+                ActorName = a.Name
+            });
+
+            var movieViewModel = new MovieViewModel();
+            movieViewModel.ActorList = new MultiSelectList(actorsList, "ActorID", "ActorName");
+            movieViewModel.Movie = new Movie();
+            movieViewModel.Movie.Title = "ABC";
+            movieViewModel.Movie.GenreID = 1;
+            movieViewModel.Movie.Price = 10;
+            movieViewModel.Movie.Rating = "RET";
+            return View(movieViewModel);
         }
+        //[Bind("Movie_ID,Movie_Title,Movie_ReleaseDate,Movie_Genre,Movie_Price,Movie_Rating,ActorList")]
+        //MovieViewModel movieVM
 
         // POST: Movies/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
+        public async Task<IActionResult> Create(Movie movie, MovieViewModel movieVM)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(movie);
                 await _context.SaveChangesAsync();
+                foreach (var item in movieVM.MovieActors)
+                {
+                    Movie movieInserted = _context.Movie.Last(m => m.Title == movie.Title);
+                    var movieActor = new MovieActor { MovieID = movieInserted.ID, ActorID = item };
+                    _context.MovieActor.Add(movieActor);
+                    await _context.SaveChangesAsync();
+                }
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(movie);
+            return View(movieVM);
         }
 
         // GET: Movies/Edit/5

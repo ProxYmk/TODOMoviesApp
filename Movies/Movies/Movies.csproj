@@ -21,4 +21,7 @@
     <Content Remove="Views\Movies\Edit.cshtml" />
     <Content Remove="Views\Movies\Index.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\HelloWorldController.cs" />
+  </ItemGroup>
 </Project>

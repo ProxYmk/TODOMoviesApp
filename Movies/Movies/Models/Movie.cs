@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Movies.Models
@@ -17,10 +18,19 @@ namespace Movies.Models
         [Range(1, 100), DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
-        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$"), Required, StringLength(30)]
-        public string Genre { get; set; }
-
         [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$"), StringLength(5), Required]
         public string Rating { get; set; }
+
+        public List<MovieActor> MovieActors { get; set; }
+
+        public int GenreID { get; set; }
+        public Genre Genre { get; set; }
+
+        public int ProductionID { get; set; }
+        public Production Production { get; set; }
+    }
+
+    public enum Rating{
+        P,R,G
     }
 }

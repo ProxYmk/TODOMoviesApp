@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Movies.Models
 {
-    public class MovieGenreViewModel
+    public class MovieIndexViewModel
     {
         public List<Movie> movies;
         public SelectList genres;
-        public string movieGenre { get; set; }
+        public int movieGenre { get; set; }
     }
 }

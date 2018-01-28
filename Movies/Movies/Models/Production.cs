@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Movies.Models
 {
-    public class Genre
+    public class Production
     {
         public int ID { get; set; }
-        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$"), Required, StringLength(30)]
+        [StringLength(60, MinimumLength = 3)]
         public String Name { get; set; }
     }
 }
