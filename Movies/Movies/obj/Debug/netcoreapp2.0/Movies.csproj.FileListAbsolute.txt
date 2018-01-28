@@ -19,4 +19,3 @@
 /Users/makoy/Projects/Repo/Movies/Movies/obj/Debug/netcoreapp2.0/Movies.AssemblyInfo.cs
 /Users/makoy/Projects/Repo/Movies/Movies/obj/Debug/netcoreapp2.0/Movies.dll
 /Users/makoy/Projects/Repo/Movies/Movies/obj/Debug/netcoreapp2.0/Movies.pdb
-/Users/makoy/Projects/Repo/Movies/Movies/obj/Debug/netcoreapp2.0/Movies.csprojResolveAssemblyReference.cache

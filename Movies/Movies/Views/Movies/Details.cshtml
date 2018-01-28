@@ -4,10 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>Movie Details</h2>
 
 <div>
-    <h4>Movie</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -26,13 +25,29 @@
             @Html.DisplayNameFor(model => model.Genre)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Genre)
+            @Html.DisplayFor(model => model.Genre.Name)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Price)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+        <dt>
+            Actors
+        </dt>
+        <dd>
+            @foreach (var item in Model.MovieActors) {
+           
+              @Html.DisplayFor(modelItem => item.Actor.Name)
+               <br>
+            }
         </dd>
     </dl>
 </div>

@@ -60,9 +60,9 @@ namespace Movies.Controllers
                     .ToList();
             }
 
-            var movieGenreVM = new MovieIndexViewModel();
-            movieGenreVM.genres = new SelectList(genreList, "GenreID", "GenreName");
-            movieGenreVM.movies = movieList;
+            var movieGenreVM = new MovieViewModel();
+            movieGenreVM.GenresList = new SelectList(genreList, "GenreID", "GenreName");
+            movieGenreVM.MovieList = movieList;
 
             return View(movieGenreVM);
         }
@@ -76,7 +76,11 @@ namespace Movies.Controllers
             }
 
             var movie = await _context.Movie
-                .SingleOrDefaultAsync(m => m.ID == id);
+                                  .Include(m => m.Genre)
+                                  .Include(m => m.MovieActors)
+                                  .ThenInclude<Movie, MovieActor, Actor>(ma => ma.Actor)
+                                   .SingleOrDefaultAsync(m => m.ID == id);
+            
             if (movie == null)
             {
                 return NotFound();
@@ -104,15 +108,9 @@ namespace Movies.Controllers
             movieViewModel.ActorList = new MultiSelectList(actorsList, "ActorID", "ActorName");
             movieViewModel.GenresList = new SelectList(genreList, "GenreID", "GenreName");
             movieViewModel.Movie = new Movie();
-            movieViewModel.Movie.Title = "ABC";
-            movieViewModel.Movie.GenreID = 1;
-            movieViewModel.Movie.Price = 10;
-            movieViewModel.Movie.Rating = "RET";
           
             return View(movieViewModel);
         }
-        //[Bind("Movie_ID,Movie_Title,Movie_ReleaseDate,Movie_Genre,Movie_Price,Movie_Rating,ActorList")]
-        //MovieViewModel movieVM
 
         // POST: Movies/Create
         [HttpPost]
@@ -143,26 +141,18 @@ namespace Movies.Controllers
             {
                 return NotFound();
             }
-            var movies = from m in _context.Movie
-                                               where m.ID == id
-                         join g in _context.Genre on m.GenreID equals g.ID
-                                           //join ma in _context.MovieActor on m.ID equals ma.MovieID
-                                           //join  a in _context.Actor on ma.ActorID equals a.ID
-                         select new { g, m};
-            
-            var actors = from ma in _context.MovieActor
-                                                where ma.MovieID == id
-                        //join ma in _context.MovieActor on m.ID equals ma.MovieID
-                        join  a in _context.Actor on ma.ActorID equals a.ID
-                        select new { ma, a};
-            var result1 = await actors.ToListAsync();
-            var result = await movies.ToListAsync();
 
-            var movie = await _context.Movie.SingleOrDefaultAsync(m => m.ID == id);
+            var movie = await _context.Movie
+                                  .Include(m => m.Genre)
+                                  .Include(m => m.MovieActors)
+                                  .ThenInclude<Movie, MovieActor, Actor>(ma => ma.Actor)
+                                   .SingleOrDefaultAsync(m => m.ID == id);
+
             if (movie == null)
             {
                 return NotFound();
             }
+
             return View(movie);
         }
 
@@ -208,7 +198,10 @@ namespace Movies.Controllers
             }
 
             var movie = await _context.Movie
-                .SingleOrDefaultAsync(m => m.ID == id);
+                                  .Include(m => m.Genre)
+                                  .Include(m => m.MovieActors)
+                                  .ThenInclude<Movie, MovieActor, Actor>(ma => ma.Actor)
+                                   .SingleOrDefaultAsync(m => m.ID == id);
             if (movie == null)
             {
                 return NotFound();
@@ -232,14 +225,5 @@ namespace Movies.Controllers
         {
             return _context.Movie.Any(e => e.ID == id);
         }
-
-        //private System.Collections.Generic.List<Genre> GetGenreList(){
-        //    var X = _context.Genre.Select(g => new{
-        //        GenreID = g.ID,
-        //        GenreName = g.Name
-        //    }).ToList();
-
-        //    return X;
-        //}
     }
 }

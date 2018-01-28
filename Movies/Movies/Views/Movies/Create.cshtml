@@ -5,7 +5,7 @@
 }
 
 
-<h2>Add New Movie</h2>
+<h2>Add new Movie</h2>
 
 <hr />
 <div class="row">
@@ -37,7 +37,9 @@
                 <span asp-validation-for="Movie.Rating" class="text-danger"></span>
             </div>
             <div class="form-group">
-              <select asp-for="MovieActors" asp-items="Model.ActorList">
+                <label asp-for="MovieActors" class="control-label">Actors</label>
+                <br/>
+                <select asp-for="MovieActors" asp-items="Model.ActorList">
                 </select>
             </div>
             <div class="form-group">

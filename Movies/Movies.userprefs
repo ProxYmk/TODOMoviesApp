@@ -1,10 +1,13 @@
 ﻿<Properties StartupConfiguration="{9819B899-E937-46BC-A4E9-C860CCA71368}|Default">
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Movies/Controllers/MoviesController.cs">
+    <Files>
+      <File FileName="Movies/Controllers/MoviesController.cs" Line="205" Column="31" />
+      <File FileName="Movies/Models/Movie.cs" Line="24" Column="44" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/makoy/Projects/Repo/Movies/Movies/Controllers/MoviesController.cs" relfile="Movies/Controllers/MoviesController.cs" line="161" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
