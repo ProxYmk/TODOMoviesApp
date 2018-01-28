@@ -11,7 +11,7 @@ using System;
 namespace Movies.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20180128014638_InitialCreate")]
+    [Migration("20180128190314_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,10 +25,12 @@ namespace Movies.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .HasMaxLength(60);
 
                     b.Property<string>("Name")
-                        .HasMaxLength(60);
+                        .IsRequired()
+                        .HasMaxLength(30);
 
                     b.HasKey("ID");
 
@@ -58,8 +60,6 @@ namespace Movies.Migrations
 
                     b.Property<decimal>("Price");
 
-                    b.Property<int>("ProductionID");
-
                     b.Property<string>("Rating")
                         .IsRequired()
                         .HasMaxLength(5);
@@ -73,8 +73,6 @@ namespace Movies.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("GenreID");
-
-                    b.HasIndex("ProductionID");
 
                     b.ToTable("Movie");
                 });
@@ -92,29 +90,11 @@ namespace Movies.Migrations
                     b.ToTable("MovieActor");
                 });
 
-            modelBuilder.Entity("Movies.Models.Production", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(60);
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Production");
-                });
-
             modelBuilder.Entity("Movies.Models.Movie", b =>
                 {
                     b.HasOne("Movies.Models.Genre", "Genre")
                         .WithMany()
                         .HasForeignKey("GenreID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Movies.Models.Production", "Production")
-                        .WithMany()
-                        .HasForeignKey("ProductionID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -14,14 +14,4 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Remove="Views\Movies\Create.cshtml" />
-    <Content Remove="Views\Movies\Delete.cshtml" />
-    <Content Remove="Views\Movies\Details.cshtml" />
-    <Content Remove="Views\Movies\Edit.cshtml" />
-    <Content Remove="Views\Movies\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Controllers\HelloWorldController.cs" />
-  </ItemGroup>
 </Project>

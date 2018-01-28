@@ -27,12 +27,7 @@ namespace Movies.Controllers
         // Requires using Microsoft.AspNetCore.Mvc.Rendering;
         public async Task<IActionResult> Index(int movieGenre, string searchString)
         {
-            var genreList = _context.Genre.Select(g => new
-            {
-                GenreID = g.ID,
-                GenreName = g.Name
-            });
-
+            //Get information of a Movie and relation with Genre with LINQ
             var movies = from m in _context.Movie
                          join g in _context.Genre on m.GenreID equals g.ID
                          select new { g, m };
@@ -45,14 +40,14 @@ namespace Movies.Controllers
                 movieList.Add(item.m);
             }
 
-
+            //Filter by Tittle
             if (!String.IsNullOrEmpty(searchString))
             {
                 movieList = (List<Movie>)movieList
                     .Where(m => m.Title.ToLower().Contains(searchString.ToLower()))
                     .ToList();
             }
-
+            //Filter by Genre
             if (movieGenre != 0)
             {
                 movieList = (List<Movie>)movieList
@@ -60,8 +55,9 @@ namespace Movies.Controllers
                     .ToList();
             }
 
+            //Create Custome model to handle the View
             var movieGenreVM = new MovieViewModel();
-            movieGenreVM.GenresList = new SelectList(genreList, "GenreID", "GenreName");
+            movieGenreVM.GenresList = new SelectList(getGenreList(), "GenreID", "GenreName");
             movieGenreVM.MovieList = movieList;
 
             return View(movieGenreVM);
@@ -75,6 +71,7 @@ namespace Movies.Controllers
                 return NotFound();
             }
 
+            //Get all information of a Movie and relations
             var movie = await _context.Movie
                                   .Include(m => m.Genre)
                                   .Include(m => m.MovieActors)
@@ -92,21 +89,10 @@ namespace Movies.Controllers
         // GET: Movies/Create
         public IActionResult Create()
         {
-            var actorsList = _context.Actor.Select(a => new
-            {
-                ActorID = a.ID,
-                ActorName = a.Name
-            });
-
-            var genreList = _context.Genre.Select(g => new
-            {
-                GenreID = g.ID,
-                GenreName = g.Name
-            });
-
+            //Create Custome model to handle the View
             var movieViewModel = new MovieViewModel();
-            movieViewModel.ActorList = new MultiSelectList(actorsList, "ActorID", "ActorName");
-            movieViewModel.GenresList = new SelectList(genreList, "GenreID", "GenreName");
+            movieViewModel.ActorList = new MultiSelectList(getActorsList(), "ActorID", "ActorName");
+            movieViewModel.GenresList = new SelectList(getGenreList(), "GenreID", "GenreName");
             movieViewModel.Movie = new Movie();
           
             return View(movieViewModel);
@@ -119,6 +105,7 @@ namespace Movies.Controllers
         {
             if (ModelState.IsValid)
             {
+                movie.GenreID = movieVM.MovieGenre;
                 _context.Add(movie);
                 await _context.SaveChangesAsync();
                 foreach (var item in movieVM.MovieActors)
@@ -142,6 +129,7 @@ namespace Movies.Controllers
                 return NotFound();
             }
 
+            //Get all information of a Movie and relations
             var movie = await _context.Movie
                                   .Include(m => m.Genre)
                                   .Include(m => m.MovieActors)
@@ -153,23 +141,25 @@ namespace Movies.Controllers
                 return NotFound();
             }
 
-            return View(movie);
+            //Create Custome model to handle the View
+            var movieViewModel = new MovieViewModel();
+            movieViewModel.GenresList = new SelectList(getGenreList(), "GenreID", "GenreName");
+            movieViewModel.Movie = movie;
+
+            return View(movieViewModel);
         }
 
         // POST: Movies/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Price,Rating")]Movie movie, MovieViewModel movieVM)
         {
-            if (id != movie.ID)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
+                    movie.ID = id;
+                    movie.GenreID = movieVM.MovieGenre;
                     _context.Update(movie);
                     await _context.SaveChangesAsync();
                 }
@@ -196,7 +186,7 @@ namespace Movies.Controllers
             {
                 return NotFound();
             }
-
+            //Get all information of a Movie and relations
             var movie = await _context.Movie
                                   .Include(m => m.Genre)
                                   .Include(m => m.MovieActors)
@@ -224,6 +214,28 @@ namespace Movies.Controllers
         private bool MovieExists(int id)
         {
             return _context.Movie.Any(e => e.ID == id);
+        }
+
+        private IQueryable<object> getGenreList()
+        {  
+            //get genre list
+            var genreList = _context.Genre.Select(g => new
+            {
+                GenreID = g.ID,
+                GenreName = g.Name
+            });
+            return genreList;
+        }
+
+        private IQueryable<object> getActorsList()
+        {
+            //get actors list
+            var actorsList = _context.Actor.Select(a => new
+            {
+                ActorID = a.ID,
+                ActorName = a.Name
+            });
+            return actorsList;
         }
     }
 }
