@@ -24,24 +24,6 @@ namespace Movies.Controllers
             return View(await _context.Actor.ToListAsync());
         }
 
-        // GET: Actors/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var actor = await _context.Actor
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (actor == null)
-            {
-                return NotFound();
-            }
-
-            return View(actor);
-        }
-
         // GET: Actors/Create
         public IActionResult Create()
         {
