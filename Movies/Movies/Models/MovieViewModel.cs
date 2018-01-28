@@ -13,12 +13,13 @@ namespace Movies.Models
 
         public Movie Movie;
 
-        public SelectList Genres;
-        public string MovieGenre { get; set; }
+        public SelectList GenresList;
+        public int MovieGenre { get; set; }
 
         public MultiSelectList ActorList;
         public List<int> MovieActors { get; set; }
 
         public string MovieProduction { get; set; }
+
     }
 }

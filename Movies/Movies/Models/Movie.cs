@@ -26,11 +26,5 @@ namespace Movies.Models
         public int GenreID { get; set; }
         public Genre Genre { get; set; }
 
-        public int ProductionID { get; set; }
-        public Production Production { get; set; }
-    }
-
-    public enum Rating{
-        P,R,G
     }
 }

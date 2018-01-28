@@ -14,7 +14,6 @@ namespace Movies.Models
         public DbSet<Movies.Models.Actor> Actor { get; set; }
         public DbSet<Movies.Models.MovieActor> MovieActor { get; set; }
         public DbSet<Movies.Models.Genre> Genre { get; set; }
-        public DbSet<Movies.Models.Production> Production { get; set; }
        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

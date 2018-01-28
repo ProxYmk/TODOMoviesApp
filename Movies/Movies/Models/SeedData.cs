@@ -13,17 +13,10 @@ namespace Movies.Models
                 serviceProvider.GetRequiredService<DbContextOptions<MovieContext>>()))
             {
                 // Look for any movies.
-                if (context.Production.Any() && context.Genre.Any())
+                if (context.Genre.Any())
                 {
                     return;   // DB has been seeded
                 }
-
-                context.Production.AddRange(
-                    new Production { Name = "Disney" },
-                    new Production { Name = "Universal" },
-                    new Production { Name = "Pixar" }
-                );
-                context.SaveChanges();
 
                 context.Genre.AddRange(
                     new Genre { Name = "Comedy"},
@@ -33,10 +26,10 @@ namespace Movies.Models
                 context.SaveChanges();
 
                 context.Movie.AddRange(
-                    new Movie {Title = "When Harry Met Sally",ReleaseDate = DateTime.Parse("1989-1-11"),GenreID = 1,Rating = "R",Price = 7.99M, ProductionID = 1},
-                    new Movie {Title = "Ghostbusters ",ReleaseDate = DateTime.Parse("1984-3-13"),GenreID = 2,Rating = "P", Price = 8.99M, ProductionID = 1},
-                    new Movie {Title = "Ghostbusters 2",ReleaseDate = DateTime.Parse("1986-2-23"),GenreID = 1,Rating = "P",Price = 9.99M, ProductionID = 1 },
-                    new Movie {Title = "Rio Bravo",ReleaseDate = DateTime.Parse("1959-4-15"),GenreID = 3,Rating = "R",Price = 3.99M, ProductionID = 1 }
+                    new Movie {Title = "When Harry Met Sally",ReleaseDate = DateTime.Parse("1989-1-11"),GenreID = 1,Rating = "R",Price = 7.99M},
+                    new Movie {Title = "Ghostbusters ",ReleaseDate = DateTime.Parse("1984-3-13"),GenreID = 2,Rating = "P", Price = 8.99M},
+                    new Movie {Title = "Ghostbusters 2",ReleaseDate = DateTime.Parse("1986-2-23"),GenreID = 1,Rating = "P",Price = 9.99M},
+                    new Movie {Title = "Rio Bravo",ReleaseDate = DateTime.Parse("1959-4-15"),GenreID = 3,Rating = "R",Price = 3.99M}
                 );
                 context.SaveChanges();
 
